@@ -275,6 +275,7 @@ function init() {
     cart.length = 0;
     renderCart();
     toggleModal();
+    localStorage.removeItem(login);
   });
   modalBody.addEventListener('click', changeCount);
   cardsMenu.addEventListener('click', addToCart);
