@@ -2,4 +2,4 @@
 
 intensiv GloAcademy
 
-https://gandzja.github.io/DeliveryFood/
+https://deliveryfood.netlify.app/
