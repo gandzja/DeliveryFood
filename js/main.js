@@ -29,6 +29,18 @@ let login = localStorage.getItem('ourLogin');
 
 const cart = [];
 
+const LoadCart = function () {
+  if (localStorage.getItem(login)) {
+    JSON.parse(localStorage.getItem(login)).forEach(function (item) {
+      cart.push(item);
+    });
+  }
+};
+
+const saveCart = function () {
+  localStorage.setItem(login, JSON.stringify(cart));
+};
+
 const getData = async function (url) {
   const response = await fetch(url);
 
@@ -59,6 +71,7 @@ function returnMAin() {
 function authorized() {
   function logOut() {
     login = null;
+    cart.length = 0;
     localStorage.removeItem('ourLogin');
     buttonAuth.style.display = '';
     userName.style.display = '';
@@ -75,6 +88,7 @@ function authorized() {
   buttonOut.style.display = 'flex';
   cartButton.style.display = 'flex';
   buttonOut.addEventListener('click', logOut);
+  LoadCart();
 }
 
 function notAuthorized() {
@@ -214,6 +228,7 @@ function addToCart(event) {
       });
     }
   }
+  saveCart();
 }
 
 function renderCart() {
@@ -237,7 +252,6 @@ function renderCart() {
     return result + parseFloat(item.cost) * item.count;
   }, 0);
   modalPrice.textContent = totalPrice + '₽';
-  
 }
 
 function changeCount(event) {
@@ -256,6 +270,7 @@ function changeCount(event) {
     if (target.classList.contains('counter-plus')) food.count++;
     renderCart();
   }
+  saveCart();
 }
 
 function init() {
